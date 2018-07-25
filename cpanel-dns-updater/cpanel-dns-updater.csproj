@@ -101,4 +101,14 @@ copy *.dll Lib
 del *.dll
 del *.xml</PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Target Name="AfterClean">
+    <Delete Files="$(OutDir)\log.txt" />
+	<RemoveDir Directories="$(OutDir)\Config" />
+	<RemoveDir Directories="$(OutDir)\Lib" />
+	<RemoveDir Directories="$(OutDir)\Status" />
+  </Target>
 </Project>

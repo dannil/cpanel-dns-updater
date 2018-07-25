@@ -12,7 +12,6 @@ namespace CPanelDnsUpdater
 {
     public class CPanelCommunicator
     {
-
         private static readonly ILog log = LogManager.GetLogger(typeof(CPanelCommunicator));
 
         private String username;

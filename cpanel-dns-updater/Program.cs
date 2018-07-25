@@ -1,9 +1,13 @@
-﻿using System;
+﻿using log4net;
+using System;
+using System.Net;
 
 namespace CPanelDnsUpdater
 {
     public class Program
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(CPanelCommunicator));
+
         public static void Main(string[] args)
         {
             try
@@ -23,6 +27,13 @@ namespace CPanelDnsUpdater
                 {
                     s.UpdateDomain(args[3], args[4]);
                 }
+                else if ("random".Equals(modeValue))
+                {
+                    byte[] data = new byte[4];
+                    new Random().NextBytes(data);
+                    IPAddress ip = new IPAddress(data);
+                    s.UpdateDomain(args[3], args[4], ip.ToString());
+                }
                 else
                 {
                     s.UpdateDomain(args[3], args[4], args[6]);
@@ -30,7 +41,7 @@ namespace CPanelDnsUpdater
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                log.Error(e.Message);
             }
         }
     }

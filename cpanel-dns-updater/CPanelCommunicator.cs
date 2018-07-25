@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using CPanelDnsUpdater.Utility;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace CPanelDnsUpdater
 {
@@ -55,12 +56,15 @@ namespace CPanelDnsUpdater
         {
             Console.WriteLine("Updating record {0} with address {1}", record, address);
 
-            String lastRunFile = "status/" + record + "_last_run.txt";
+            String lastRunFile = String.Format("status/{0}_last_run.txt", record);
             if (!File.Exists(lastRunFile))
             {
                 Directory.CreateDirectory("status");
-                File.Create(lastRunFile);
-                File.WriteAllText(lastRunFile, "0.0.0.0");
+                using (FileStream fs = File.Create(lastRunFile))
+                {
+                    byte[] placeholderAddress = Encoding.UTF8.GetBytes("0.0.0.0");
+                    fs.Write(placeholderAddress, 0, placeholderAddress.Length);
+                }
             }
 
             String lastRunAddress = File.ReadAllText(lastRunFile);

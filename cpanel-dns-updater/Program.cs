@@ -32,7 +32,6 @@ namespace CPanelDnsUpdater
             {
                 Console.WriteLine(e.Message);
             }
-            Console.ReadKey();
         }
     }
 }

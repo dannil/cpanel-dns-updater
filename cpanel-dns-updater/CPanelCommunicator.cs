@@ -60,10 +60,10 @@ namespace CPanelDnsUpdater
         {
             log.InfoFormat("Updating record {0} with address {1}", record, address);
 
-            String lastRunFile = String.Format("status/{0}_last_run.txt", record);
+            String lastRunFile = String.Format("Status/{0}_last_run.txt", record);
             if (!File.Exists(lastRunFile))
             {
-                Directory.CreateDirectory("status");
+                Directory.CreateDirectory(Path.GetDirectoryName(lastRunFile));
                 using (FileStream fs = File.Create(lastRunFile))
                 {
                     byte[] placeholderAddress = Encoding.UTF8.GetBytes("0.0.0.0");

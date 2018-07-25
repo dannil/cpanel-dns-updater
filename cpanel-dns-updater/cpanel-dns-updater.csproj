@@ -80,7 +80,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="log4net.config">
+    <None Include="Config\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -96,8 +96,8 @@
   <PropertyGroup>
     <PostBuildEvent>cd $(OutputDir)
 
-mkdir lib
-copy *.dll lib
+mkdir Lib
+copy *.dll Lib
 del *.dll
 del *.xml</PostBuildEvent>
   </PropertyGroup>

@@ -6,11 +6,15 @@ using System.IO;
 using CPanelDnsUpdater.Utility;
 using System.Text.RegularExpressions;
 using System.Text;
+using log4net;
 
 namespace CPanelDnsUpdater
 {
     public class CPanelCommunicator
     {
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(CPanelCommunicator));
+
         private String username;
         private String password;
         private String host;
@@ -33,7 +37,7 @@ namespace CPanelDnsUpdater
 
         public void UpdateDomain(String zone, String record)
         {
-            Console.WriteLine("Fetching current external IP...");
+            log.Info("Fetching current external IP...");
 
             String currentIp = NetworkUtility.GetCurrentIpAddress();
             if (currentIp != null)
@@ -48,13 +52,13 @@ namespace CPanelDnsUpdater
             }
             else
             {
-                Console.WriteLine("Address {0} is not a valid IP address", currentIp);
+                log.ErrorFormat("Address {0} is not a valid IP address", currentIp);
             }
         }
 
         public void UpdateDomain(String zone, String record, String address)
         {
-            Console.WriteLine("Updating record {0} with address {1}", record, address);
+            log.InfoFormat("Updating record {0} with address {1}", record, address);
 
             String lastRunFile = String.Format("status/{0}_last_run.txt", record);
             if (!File.Exists(lastRunFile))
@@ -70,7 +74,7 @@ namespace CPanelDnsUpdater
             String lastRunAddress = File.ReadAllText(lastRunFile);
             if (address.Equals(lastRunAddress))
             {
-                Console.WriteLine("New address is identical to the address saved from the last run ({0}), not calling API", lastRunAddress);
+                log.InfoFormat("New address is identical to the address saved from the last run ({0}), not calling API", lastRunAddress);
                 return;
             }
 
@@ -98,16 +102,16 @@ namespace CPanelDnsUpdater
 
                     File.WriteAllText(lastRunFile, address);
 
-                    Console.WriteLine("Updated address for record {0} to {1}", recordName, address);
+                    log.InfoFormat("Updated address for record {0} to {1}", recordName, address);
                 }
                 else
                 {
-                    Console.WriteLine("Old and new addresses are identical ({0} == {1}), not updating", oldAddress, address);
+                    log.InfoFormat("Old and new addresses are identical ({0}), not updating", address);
                 }
             }
             else
             {
-                Console.WriteLine("Record {0} doesn't exist", record);
+                log.WarnFormat("Record {0} doesn't exist", record);
             }
         }
     }

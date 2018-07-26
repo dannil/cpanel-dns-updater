@@ -37,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="cPanelSharp, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -96,8 +98,8 @@
   <PropertyGroup>
     <PostBuildEvent>cd $(OutputDir)
 
-mkdir Lib
-copy *.dll Lib
+mkdir Libraries
+copy *.dll Libraries
 del *.dll
 del *.xml</PostBuildEvent>
   </PropertyGroup>
@@ -107,8 +109,8 @@ del *.xml</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterClean">
     <Delete Files="$(OutDir)\log.txt" />
-	<RemoveDir Directories="$(OutDir)\Config" />
-	<RemoveDir Directories="$(OutDir)\Lib" />
-	<RemoveDir Directories="$(OutDir)\Status" />
+    <RemoveDir Directories="$(OutDir)\Config" />
+    <RemoveDir Directories="$(OutDir)\Libraries" />
+    <RemoveDir Directories="$(OutDir)\Status" />
   </Target>
 </Project>

@@ -42,7 +42,7 @@ namespace CPanelDnsUpdater
             if (currentIp != null)
             {
                 // Normalize string
-                currentIp = Regex.Replace(currentIp, @"\r\n?|\n", " ");
+                currentIp = Regex.Replace(currentIp, @"\r\n?|\n", "");
                 currentIp = currentIp.Trim();
             }
             if (NetworkUtility.IsValidIpAddress(currentIp))

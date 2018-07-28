@@ -1,4 +1,4 @@
-# scb-java-client
+# cpanel-dns-updater
 
 Update a DNS record through the cPanel API.
 

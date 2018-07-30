@@ -62,6 +62,7 @@ namespace CPanelDnsUpdater
             String lastRunFile = String.Format("Status/{0}_last_run.txt", record);
             if (!File.Exists(lastRunFile))
             {
+                log.InfoFormat("Creating file {0}", lastRunFile);
                 Directory.CreateDirectory(Path.GetDirectoryName(lastRunFile));
                 using (FileStream fs = File.Create(lastRunFile))
                 {
